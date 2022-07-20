@@ -1,6 +1,7 @@
 import {useState} from 'react'
 import axios from 'axios'
 import timeOutCallback from '../helpers/timeOutCallback'
+import useNotification from './useNotification'
 
 const global_url_api = process.env.REACT_APP_API_URL
 
@@ -11,16 +12,16 @@ const useAuth = (endpoint) => {
   const [token, setToken] = useState(null)
   const [loading, setLoading] = useState(true)
 
+  const { setToast } = useNotification()
 
   const sign_in = async (user) => {
     try {
       const data = await axios.post(url, 
         {
           user: {
-            email: user.email,
+            login: user.polymorphic_login,
             password: user.password,
           },
-          // user: user,
         }
       )
       if (data.data.status === "ok") {
@@ -29,30 +30,32 @@ const useAuth = (endpoint) => {
         setUser(data.data.user)
         setToken(data.headers.authorization)
         setLoading(false)
-        timeOutCallback()
+        timeOutCallback("/", 700)
+        setToast(data.data)
       } else {
         console.log("error")
         setLoading(false)
+        setToast(data.data)
       }
     } catch (error) {
       console.log(error)
     }
   }
-  const sign_out = async () => {
-    try {
-      await axios.delete(url, {
-        headers: {
-          authorization: token
-        }
-      })
+
+  const sign_out = async() => {
+    const data = await axios.delete(url)
+    if (data.data.status === "ok") {
       localStorage.removeItem("token")
       localStorage.removeItem("user")
       setUser(null)
       setToken(null)
       setLoading(false)
-    } catch (error) {
-      console.log(error)
-    }
+      timeOutCallback("/", 700)
+      setToast(data.data)
+    }else {
+      setLoading(false)
+      setToast(data.data)
+    }    
   }
 
   return { user, token, loading, sign_in, sign_out }

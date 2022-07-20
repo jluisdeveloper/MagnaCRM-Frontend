@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from 'react'
-import { useNavigate } from "react-router-dom"
-import axios from 'axios'
+import React, { useState } from 'react'
 import useAuth from 'src/hooks/useAuth'
 import {
   CButton,
@@ -16,43 +14,16 @@ import {
   CRow,
 } from '@coreui/react-pro'
 import CIcon from '@coreui/icons-react'
+import { ToastContainer } from 'react-toastify'
 import { cilLockLocked, cilUser } from '@coreui/icons'
 
 const Login = () => {
-  const [user, setUser] = useState({ email: "", password: "" })
+  const [credentials, setCredentials] = useState({ polymorphic_login: "", password: "" })
   const { sign_in } = useAuth("/users/sign_in")
 
   const handleChange = (e) => {
-    setUser({ ...user, [e.target.name]: e.target.value })
+    setCredentials({ ...credentials, [e.target.name]: e.target.value })
   }
-
-
-  const handleSubmitLogin = async () => {
-    try {
-      const data = await axios.post(
-        "http://127.0.0.1:3000/users/sign_in",
-        {
-          user: {
-            email: user.login,
-            password: user.password,
-          },
-          // user: user,
-        }
-      )
-      if (data.data.status === "ok") {
-        localStorage.setItem("token", data.headers.authorization)
-        localStorage.setItem("user", JSON.stringify(data.data.user))
-        setTimeout(() => {
-          window.location.replace("/")
-        }, 200)
-      } else {
-        alert("Usuario o contraseña incorrectos")
-      }
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
 
   return (
     <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
@@ -72,8 +43,8 @@ const Login = () => {
                       <CFormInput
                         placeholder="Numero de DNI"
                         autoComplete="DNI"
-                        name="email"
-                        value={user.email}
+                        name="polymorphic_login"
+                        value={credentials.polymorphic_login}
                         onChange={handleChange}
                       />
                     </CInputGroup>
@@ -86,7 +57,7 @@ const Login = () => {
                         placeholder="Password"
                         autoComplete="current-password"
                         name="password"
-                        value={user.password}
+                        value={credentials.password}
                         onChange={handleChange}
                       />
                     </CInputGroup>
@@ -95,20 +66,11 @@ const Login = () => {
                         <CButton
                           color="primary"
                           className="px-4"
-                          onClick={() => sign_in(user)}
+                          onClick={() => sign_in(credentials)}
                         >
                           Ingresar
                         </CButton>
                       </CCol>
-                      {/* <CCol xs={6} className="text-right">
-                        <CButton 
-                          color="danger" 
-                          className="px-0"
-                          onClick={(e)=> handleSubmitLogout(e)}
-                        >
-                          Cerrar Sesion
-                        </CButton>
-                      </CCol> */}
                     </CRow>
                   </CForm>
                 </CCardBody>
@@ -120,11 +82,6 @@ const Login = () => {
                     <p>
                       Sistema de gestion de clientes para la empresa MAGNA, desarrollado por la agencia MAKI.
                     </p>
-                    {/* <Link to="/register">
-                      <CButton color="primary" className="mt-3" active tabIndex={-1}>
-                        Register Now!
-                      </CButton>
-                    </Link> */}
                   </div>
                 </CCardBody>
               </CCard>
@@ -132,6 +89,17 @@ const Login = () => {
           </CCol>
         </CRow>
       </CContainer>
+      <ToastContainer
+        position="top-right"
+        autoClose={4000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   )
 }

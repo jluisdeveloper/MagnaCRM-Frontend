@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   CAvatar,
   CBadge,
@@ -21,34 +21,49 @@ import {
   cilUser,
 } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
+import femaleAvatar from '../../assets/images/avatars/female_avatar.png'
+import maleAvatar from '../../assets/images/avatars/male_avatar.png'
+import otherAvatar from '../../assets/images/avatars/other_avatar.png'
 
-// import avatar8 from './../../assets/images/avatars/8.jpg'
+import useAuth from 'src/hooks/useAuth'
 
 const AppHeaderDropdown = () => {
+  const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('user')))
+  const { sign_out } = useAuth("/users/sign_out")
+  const set_avatar = () => {
+    if (currentUser.gender === 'male') {
+      return maleAvatar
+    }else if (currentUser.gender === 'female')
+      return femaleAvatar
+    else {
+      return otherAvatar
+    }
+  }
+
   return (
     <CDropdown variant="nav-item" alignment="end">
       <CDropdownToggle placement="bottom-end" className="py-0" caret={false}>
-        <CAvatar src="{avatar8}" size="md" />
+        <CAvatar src={set_avatar()} size="md" />
       </CDropdownToggle>
       <CDropdownMenu className="pt-0">
         <CDropdownHeader className="bg-light dark:bg-white dark:bg-opacity-10 fw-semibold py-2">
-          Account
+          CRM Sistema
         </CDropdownHeader>
         <CDropdownItem href="#">
           <CIcon icon={cilBell} className="me-2" />
-          Updates
+          Actualizaciones
           <CBadge color="info-gradient" className="ms-2">
-            42
+            0
           </CBadge>
         </CDropdownItem>
         <CDropdownItem href="#">
           <CIcon icon={cilEnvelopeOpen} className="me-2" />
-          Messages
+          Mensajes
           <CBadge color="success-gradient" className="ms-2">
-            42
+            0
           </CBadge>
         </CDropdownItem>
-        <CDropdownItem href="#">
+        {/* <CDropdownItem href="#">
           <CIcon icon={cilTask} className="me-2" />
           Tasks
           <CBadge color="danger-gradient" className="ms-2">
@@ -61,19 +76,19 @@ const AppHeaderDropdown = () => {
           <CBadge color="warning-gradient" className="ms-2">
             42
           </CBadge>
-        </CDropdownItem>
+        </CDropdownItem> */}
         <CDropdownHeader className="bg-light dark:bg-white dark:bg-opacity-10 fw-semibold py-2">
-          Settings
+          Ajustes
         </CDropdownHeader>
         <CDropdownItem href="#">
           <CIcon icon={cilUser} className="me-2" />
-          Profile
+          Ver perfil
         </CDropdownItem>
         <CDropdownItem href="#">
           <CIcon icon={cilSettings} className="me-2" />
-          Settings
+          Actualizar mis datos
         </CDropdownItem>
-        <CDropdownItem href="#">
+        {/* <CDropdownItem href="#">
           <CIcon icon={cilCreditCard} className="me-2" />
           Payments
           <CBadge color="secondary-gradient" className="ms-2">
@@ -86,11 +101,11 @@ const AppHeaderDropdown = () => {
           <CBadge color="primary-gradient" className="ms-2">
             42
           </CBadge>
-        </CDropdownItem>
+        </CDropdownItem> */}
         <CDropdownDivider />
-        <CDropdownItem href="#">
+        <CDropdownItem onClick={sign_out}>
           <CIcon icon={cilLockLocked} className="me-2" />
-          Lock Account
+          Cerrar Sesion
         </CDropdownItem>
       </CDropdownMenu>
     </CDropdown>

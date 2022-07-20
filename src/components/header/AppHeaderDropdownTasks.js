@@ -27,11 +27,11 @@ const AppHeaderDropdownTasks = () => {
       </CDropdownToggle>
       <CDropdownMenu placement="bottom-end" className="pt-0">
         <CDropdownHeader className="bg-light dark:bg-white dark:bg-opacity-10">
-          <strong>You have {itemsCount} pending tasks</strong>
+          <strong>Resumen de sus metricas actuales</strong>
         </CDropdownHeader>
         <CDropdownItem className="d-block">
           <div className="small mb-1">
-            Upgrade NPM &amp; Bower{' '}
+            Datos cerrados {' '}
             <span className="float-end">
               <strong>0%</strong>
             </span>
@@ -40,7 +40,7 @@ const AppHeaderDropdownTasks = () => {
         </CDropdownItem>
         <CDropdownItem className="d-block">
           <div className="small mb-1">
-            ReactJS Version{' '}
+            Clientes interesados{' '}
             <span className="float-end">
               <strong>25%</strong>
             </span>
@@ -49,7 +49,7 @@ const AppHeaderDropdownTasks = () => {
         </CDropdownItem>
         <CDropdownItem className="d-block">
           <div className="small mb-1">
-            VueJS Version{' '}
+            Clientes Potenciales{' '}
             <span className="float-end">
               <strong>50%</strong>
             </span>
@@ -58,7 +58,7 @@ const AppHeaderDropdownTasks = () => {
         </CDropdownItem>
         <CDropdownItem className="d-block">
           <div className="small mb-1">
-            Add new layouts{' '}
+            EF{' '}
             <span className="float-end">
               <strong>75%</strong>
             </span>
@@ -67,15 +67,12 @@ const AppHeaderDropdownTasks = () => {
         </CDropdownItem>
         <CDropdownItem className="d-block">
           <div className="small mb-1">
-            Angular 2 Cli Version{' '}
+            Matriculados{' '}
             <span className="float-end">
               <strong>100%</strong>
             </span>
           </div>
           <CProgress thin color="success-gradient" value={100} />
-        </CDropdownItem>
-        <CDropdownItem className="text-center border-top">
-          <strong>View all tasks</strong>
         </CDropdownItem>
       </CDropdownMenu>
     </CDropdown>

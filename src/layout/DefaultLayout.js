@@ -1,5 +1,6 @@
 import React from 'react'
 import { AppAside, AppContent, AppSidebar, AppFooter, AppHeader } from '../components/index'
+import { ToastContainer } from 'react-toastify'
 
 const DefaultLayout = () => {
   return (
@@ -13,6 +14,17 @@ const DefaultLayout = () => {
         <AppFooter />
       </div>
       <AppAside />
+      <ToastContainer
+        position="top-right"
+        autoClose={4000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </>
   )
 }

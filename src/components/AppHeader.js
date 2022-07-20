@@ -12,13 +12,12 @@ import {
   CNavItem,
 } from '@coreui/react-pro'
 import CIcon from '@coreui/icons-react'
-import { cilApplicationsSettings, cilMenu } from '@coreui/icons'
+import { cilMenu } from '@coreui/icons'
 
 import { AppBreadcrumb } from './index'
 
 import {
   AppHeaderDropdown,
-  AppHeaderDropdownMssg,
   AppHeaderDropdownNotif,
   AppHeaderDropdownTasks,
 } from './header/index'
@@ -52,17 +51,10 @@ const AppHeader = () => {
         <CHeaderNav>
           <AppHeaderDropdownNotif />
           <AppHeaderDropdownTasks />
-          {/* <AppHeaderDropdownMssg /> */}
         </CHeaderNav>
         <CHeaderNav className="ms-3 me-4">
           <AppHeaderDropdown />
         </CHeaderNav>
-        <CHeaderToggler
-          className="px-md-0 me-md-3"
-          onClick={() => dispatch({ type: 'set', asideShow: !asideShow })}
-        >
-          <CIcon icon={cilApplicationsSettings} size="lg" />
-        </CHeaderToggler>
       </CContainer>
       <CHeaderDivider />
       <CContainer fluid>

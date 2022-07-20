@@ -1,34 +1,34 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
+import useAuth from 'src/hooks/useAuth'
+
+
 import axios from 'axios'
+import setAuthToken from 'src/helpers/tokenAxios'
 import {
   CButton,
   CCol
 } from '@coreui/react-pro'
 
 const Dashboard = () => {
-  const handleSubmitLogout = async(e) => {
-    e.preventDefault()
+  const [currentUser, setCurrentUser] = useState(null)
+
+  const { sign_out } = useAuth("/users/sign_out")
+  
+  const getCurrentUser = async() => {
     try {
-      const data = await axios.delete(
-        "http://localhost:3000/users/sign_out"
+      const data = await axios.get(
+        "http://localhost:3000/current_user"
       )
-      console.log(data)
-      
-      if (data.data.status === "ok") {
-        localStorage.removeItem("token")
-        setTimeout(() => {
-          window.location.replace("/")
-        }, 200)
-      } else {
-        alert("Ocurrio un problema intenta de nuevo")
-      }
-      // setTimeout(() => {
-      //   window.location.replace("/")
-      // }, 200)
+      // console.log(data)
+      setCurrentUser(data.data.user)
     } catch (error) {
       console.log(error)
     }
   }
+
+  useEffect(() => {
+    setAuthToken(axios, localStorage.getItem("token"))
+  }, [])
 
   return (
     <>
@@ -36,12 +36,20 @@ const Dashboard = () => {
         <CButton
           color="danger"
           className="px-0"
-          onClick={(e) => handleSubmitLogout(e)}
+          onClick={() => sign_out()}
         >
           Cerrar Sesion
         </CButton>
+
+        <CButton
+          color="success"
+          className="px-0"
+          onClick={(e) => getCurrentUser(e)}
+        >
+          Check Current User
+        </CButton>
         <h1>
-          {JSON.parse(localStorage.getItem("user")).first_name}
+          {/* {JSON.parse(localStorage.getItem("user")).first_name} */}
         </h1>
       </CCol>
     </>

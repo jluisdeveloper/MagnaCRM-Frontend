@@ -19,7 +19,7 @@ import {
 } from '@coreui/icons'
 
 const AppHeaderDropdownNotif = () => {
-  const itemsCount = 5
+  const itemsCount = 3
   return (
     <CDropdown variant="nav-item" alignment="end">
       <CDropdownToggle caret={false}>
@@ -34,24 +34,18 @@ const AppHeaderDropdownNotif = () => {
       </CDropdownToggle>
       <CDropdownMenu className="pt-0">
         <CDropdownHeader className="bg-light dark:bg-white dark:bg-opacity-10">
-          <strong>You have {itemsCount} notifications</strong>
+          <strong>Tienes {itemsCount} notificaciones</strong>
         </CDropdownHeader>
         <CDropdownItem>
-          <CIcon icon={cilUserFollow} className="me-2 text-success" /> New user registered
+          <CIcon icon={cilUserFollow} className="me-2 text-success" /> Nuevos Leads asignados
         </CDropdownItem>
         <CDropdownItem>
-          <CIcon icon={cilUserUnfollow} className="me-2 text-danger" /> User deleted
+          <CIcon icon={cilUserUnfollow} className="me-2 text-danger" /> Nuevos Leads rechazados
         </CDropdownItem>
         <CDropdownItem>
-          <CIcon icon={cilChartPie} className="me-2 text-info" /> Sales report is ready
+          <CIcon icon={cilChartPie} className="me-2 text-info" /> Reporte generados
         </CDropdownItem>
-        <CDropdownItem>
-          <CIcon icon={cilBasket} className="me-2 text-primary" /> New client
-        </CDropdownItem>
-        <CDropdownItem>
-          <CIcon icon={cilSpeedometer} className="me-2 text-warning" /> Server overloaded
-        </CDropdownItem>
-        <CDropdownHeader className="bg-light dark:bg-white dark:bg-opacity-10">
+        {/* <CDropdownHeader className="bg-light dark:bg-white dark:bg-opacity-10">
           <strong>Server</strong>
         </CDropdownHeader>
         <CDropdownItem className="d-block">
@@ -80,7 +74,7 @@ const AppHeaderDropdownNotif = () => {
           </div>
           <CProgress thin color="danger-gradient" value={90} />
           <small className="text-medium-emphasis">243GB/256GB</small>
-        </CDropdownItem>
+        </CDropdownItem> */}
       </CDropdownMenu>
     </CDropdown>
   )
