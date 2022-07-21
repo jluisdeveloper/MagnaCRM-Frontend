@@ -13,10 +13,10 @@ class App extends Component {
       <HashRouter>
         <Suspense fallback={<CSpinner color="primary" />}>
           <Routes>
-            { localStorage.getItem("token")=== null ? 
-                <Route path="*" element={<Login />} />  : 
-                <Route path="*" name="Dashboard" element={<DefaultLayout />} />
-            }            
+            {localStorage.getItem("token") === null ?
+              <Route path="*" element={<Login />} /> :
+              <Route path="*" name="Dashboard" element={<DefaultLayout />} />
+            }
           </Routes>
         </Suspense>
       </HashRouter>

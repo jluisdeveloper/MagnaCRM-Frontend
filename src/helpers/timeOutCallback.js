@@ -1,8 +1,13 @@
 // for user experience 200ms delay
 const globalTime = 200
+const globalRoot = "/#"
 
-export default function timeOutCallback (url ="/", time = globalTime) {
+export default function timeOutCallback (url = globalRoot, time = globalTime) {
   setTimeout(() => {
-    window.location.replace(url)
+    if (url !== globalRoot && url !== "/") {
+      window.location.replace(globalRoot + url)
+    }else {
+      window.location.replace(url)
+    }
   }, time)
 }

@@ -24,10 +24,10 @@ const AppSidebar = () => {
       position="fixed"
       unfoldable={unfoldable}
       visible={sidebarShow}
-      className="sidebar-dark bg-dark-gradient"
       onVisibleChange={(visible) => {
         dispatch({ type: 'set', sidebarShow: visible })
       }}
+      id="sidebar-custom"
     >
       <CSidebarBrand className="d-none d-md-flex" to="/">
         <img src={logo} className="sidebar-brand-full" height={35} alt="logo" />

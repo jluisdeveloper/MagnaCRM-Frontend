@@ -5,9 +5,11 @@ import { CContainer, CSpinner } from '@coreui/react-pro'
 // routes config
 import routes from '../routes'
 
+// <CContainer lg>
+
 const AppContent = () => {
   return (
-    <CContainer lg>
+    <CContainer fluid>
       <Suspense fallback={<CSpinner color="primary" />}>
         <Routes>
           {routes.map((route, idx) => {

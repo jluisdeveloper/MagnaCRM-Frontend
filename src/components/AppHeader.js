@@ -50,8 +50,16 @@ const AppHeader = () => {
   const set_color_theme = () => {
     if (currentTheme === 'dark') {
       document.body.classList.add('dark-theme')
+      if ( document.getElementById('sidebar-custom') !== null ) {
+        document.getElementById('sidebar-custom').classList.remove('sidebar-dark')
+        document.getElementById('sidebar-custom').classList.remove('bg-dark-gradient')
+      }
     }else {
       document.body.classList.remove('dark-theme')
+      if ( document.getElementById('sidebar-custom') !== null ) {
+        document.getElementById('sidebar-custom').classList.add('sidebar-dark')
+        document.getElementById('sidebar-custom').classList.add('bg-dark-gradient')
+      }
     }
   }
 
@@ -110,7 +118,7 @@ const AppHeader = () => {
         </CHeaderNav>
         <CHeaderNav>
           <small>
-            {`Bienvenido(a) ${currentUser.first_name} ${currentUser.first_name}`}
+            {`Bienvenido(a) ${currentUser.first_name}`}
           </small>
         </CHeaderNav>
         <CHeaderNav className="ms-3 me-4">
