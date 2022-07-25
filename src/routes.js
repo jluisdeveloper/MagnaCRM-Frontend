@@ -7,6 +7,8 @@ const NewSeller = React.lazy(() => import('./views/sellers/New'))
 const ShowSeller = React.lazy(() => import('./views/sellers/Show'))
 const EditSeller = React.lazy(() => import('./views/sellers/Edit'))
 
+const LeadsImport = React.lazy(() => import('./views/leads/Import'))
+
 
 const routes = [
   { path: '/', exact: true, name: 'Dashboard', element: Dashboard },
@@ -14,7 +16,8 @@ const routes = [
   { path: '/ejecutivos', exact: true, name: 'Ejecutivos de Venta', element: Sellers },
   { path: '/ejecutivos/nuevo', exact: true, name: 'Nuevo Ejecutivo', element: NewSeller },
   { path: '/ejecutivos/:id_SE/detalle', exact: true, name: 'Detalle de Ejecutivo', element: ShowSeller },
-  { path: '/ejecutivos/:id_SE/editar', exact: true, name: 'Editar Ejecutivo', element: EditSeller },  
+  { path: '/ejecutivos/:id_SE/editar', exact: true, name: 'Editar Ejecutivo', element: EditSeller },
+  { path: '/leads/importar', exact: true, name: 'Importar Lead', element: LeadsImport },
 ]
 
 export default routes

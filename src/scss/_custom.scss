@@ -1,1 +1,29 @@
 // Here you can add other styles
+.custom_card_dropzone {
+  padding: 30px;
+  border-bottom: #ccc 1px solid;
+  margin-bottom: 20px;
+}
+
+.dropzone {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  height: 150px;
+  width: 100%;
+  border: 2px dashed #CCC !important;
+  outline: none;
+}
+
+.dropzoneReject {
+  border: 2px dashed #c77171 !important;
+}
+.dropzoneAccept {
+  border: 2px dashed #519668 !important;
+}
+
+.custom_preview_dropzone {
+  margin-top: 20px;
+  width: 100px;
+}

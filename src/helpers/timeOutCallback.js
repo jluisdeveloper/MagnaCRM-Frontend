@@ -11,3 +11,7 @@ export default function timeOutCallback (url = globalRoot, time = globalTime) {
     }
   }, time)
 }
+
+export const timeOutWaiting = (ms=globalTime) => {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
