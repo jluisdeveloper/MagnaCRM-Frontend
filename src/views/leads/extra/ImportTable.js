@@ -13,19 +13,17 @@ import {
   CButton,
   CSpinner,
   CForm,
-  CFormInput,
-  CFormLabel,
   CFormSelect,
 } from '@coreui/react-pro'
 import { CSVLink } from "react-csv"
 import { cilCloudDownload, cilSave } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
-import { capitalize, lettersOnly, regionNames } from '../../helpers/auxiliarFunctions'
-import { timeOutWaiting } from '../../helpers/timeOutCallback'
+import { capitalize, lettersOnly, regionNames } from '../../../helpers/auxiliarFunctions'
+import { timeOutWaiting } from '../../../helpers/timeOutCallback'
 
-const Table = (props) => {
+const ImportTable = (props) => {
   // destructuring props
-  const { data, coursesAvailable, insertModel } = props
+  const { data, coursesAvailable } = props
 
   const [isLoading, setIsLoading] = useState(true)
   const [finalData, setFinalData] = useState([])
@@ -42,10 +40,6 @@ const Table = (props) => {
     }
   })
 
-  function timeout(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
-
   const handleSubmit = async (event) => {
     checkValidation(event)
     if (validated && selected !== "") {
@@ -60,19 +54,7 @@ const Table = (props) => {
             ...finalData.slice(i + 1, finalData.length)
           ]);
         }
-        // }, i * 200);
       }
-
-
-      // finalData.forEach((item, i) => {
-      //   setTimeout(() => {
-      //     const resp = await authAxios.post(_endpoint, data)
-      //     // insertModel(item)
-      //     setFinalData([
-      //       ...finalData.slice(i + 1, finalData.length)
-      //     ]);
-      //   }, i * 250);
-      // });
     }
   }
 
@@ -135,7 +117,7 @@ const Table = (props) => {
         country: getCountryName(client),
         email: client.email,
         course_name: "Sin escoger un curso",
-        course_id: selected.id,
+        course_id: selected,
       })
     })
     setFinalData(auxData)
@@ -161,22 +143,14 @@ const Table = (props) => {
     setFinalData(auxData)
   }
 
-  
-
   const checkValidation = (event) => {
     const form = event.currentTarget
     if (form.checkValidity() === false) {
       event.preventDefault()
       event.stopPropagation()
     }
-    // if (selected === "") {
-    //   setValidated(false)
-    // }else {
-    //   setValidated(true)
-    // }
     setValidated(true)
   }
-
 
   useEffect(() => {
     changeStatus()
@@ -253,4 +227,4 @@ const Table = (props) => {
   )
 }
 
-export default Table
+export default ImportTable

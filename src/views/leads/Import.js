@@ -9,7 +9,7 @@ import {
   CCardHeader
 } from '@coreui/react-pro'
 import Papa from 'papaparse'
-import Table from './Table'
+import ImportTable from './extra/ImportTable'
 import AppDropzone from "../../components/AppDropzone"
 import { uniqBy } from '../../helpers/auxiliarFunctions'
 import useCrud from '../../hooks/useCrud'
@@ -21,31 +21,31 @@ const acceptParams = {
 const dataTable = {
   _header: [
     {
-      label: "Nombres", 
+      label: "Nombres",
       key: "first_name",
     },
     {
-      label: "Apellidos", 
+      label: "Apellidos",
       key: "last_name",
     },
     {
-      label: "Correo Electrónico", 
+      label: "Correo Electrónico",
       key: "email",
     },
     {
-      label: "Teléfono", 
+      label: "Teléfono",
       key: "phone",
     },
     {
-      label: "Pais", 
+      label: "Pais",
       key: "country",
     },
     {
-      label: "Curso de Interés", 
+      label: "Curso de Interés",
       key: "course",
     },
     {
-      label: "id curso", 
+      label: "id curso",
       key: "course_id",
     }
   ],
@@ -111,38 +111,36 @@ const Import = () => {
     getModel(setCoursesAvailable)
   }, [])
   return (
-    <>
-      <CRow>
-        <CCol xs={12}>
-          <CCard className="mb-4">
-            <CCardHeader className="py-4">
-              <strong>Importar Leads,</strong> <small>ingrese solo archivos</small> <strong>".csv"</strong>
-            </CCardHeader>
-            <CCardBody>
-              <AppDropzone
-                setRealFiles={setRealFiles}
-                realFiles={realFiles}
-                acceptParams={acceptParams}
-              />
+    <CRow>
+      <CCol xs={12}>
+        <CCard className="mb-4">
+          <CCardHeader className="py-4">
+            <strong>Importar Leads,</strong> <small>ingrese solo archivos</small> <strong>".csv"</strong>
+          </CCardHeader>
+          <CCardBody>
+            <AppDropzone
+              setRealFiles={setRealFiles}
+              realFiles={realFiles}
+              acceptParams={acceptParams}
+            />
 
-              {realFiles && realFiles.length && <CButton size='sm' color='primary' className='float-end' onClick={() => processData()}>
-                Procesar Datos
-              </CButton>}
-              <Suspense fallback={<CSpinner color="primary" variant="grow" />}>
-                {
-                  showTable && dataTable._data.length > 0 && coursesAvailable.length > 0 && 
-                  <Table
-                    data={dataTable}
-                    coursesAvailable={coursesAvailable}
-                    insertModel={insertModel}
-                  />
-                }
-              </Suspense>
-            </CCardBody>
-          </CCard>
-        </CCol>
-      </CRow >
-    </>
+            {realFiles && realFiles.length && <CButton size='sm' color='primary' className='float-end' onClick={() => processData()}>
+              Procesar Datos
+            </CButton>}
+            <Suspense fallback={<CSpinner color="primary" variant="grow" />}>
+              {
+                showTable && dataTable._data.length > 0 && coursesAvailable.length > 0 &&
+                <ImportTable
+                  data={dataTable}
+                  coursesAvailable={coursesAvailable}
+                  insertModel={insertModel}
+                />
+              }
+            </Suspense>
+          </CCardBody>
+        </CCard>
+      </CCol>
+    </CRow >
   )
 
 }

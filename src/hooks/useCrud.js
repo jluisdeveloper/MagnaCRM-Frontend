@@ -35,6 +35,12 @@ const useCrud = (endpoint) => {
     }
   }
 
+  const getModelData = async(_endpoint = endpoint) =>{
+    const resp = await authAxios.get(_endpoint)
+    // console.log(resp.data.data)
+    return resp.data.data
+  }
+
   const updateModel = async (data, _url_back, _endpoint = endpoint) => {
     try {
       const resp = await authAxios.put(_endpoint, data)
@@ -47,6 +53,11 @@ const useCrud = (endpoint) => {
     } catch (error) {
       sign_out()
     }
+  }
+
+  const insertModelWithCallback = async (data, _endpoint = endpoint) => { 
+    const response = await authAxios.post(_endpoint, data)
+    return response.data
   }
 
   const insertModel = async (data, _url_back, _endpoint = endpoint) => {
@@ -77,7 +88,7 @@ const useCrud = (endpoint) => {
     }
   }
 
-  return { data, getModel, updateModel, insertModel, deleteModel }
+  return { data, getModel, getModelData, updateModel, insertModel, deleteModel,    insertModelWithCallback }
 }
 
 export default useCrud

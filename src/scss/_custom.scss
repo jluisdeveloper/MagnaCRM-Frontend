@@ -27,3 +27,11 @@
   margin-top: 20px;
   width: 100px;
 }
+
+.dark-theme .form-control:disabled {
+  background-color: #4c4f54;
+}
+
+.picker.show .input-group {
+  background-color: rgba(255, 255, 255, 0.05);
+}

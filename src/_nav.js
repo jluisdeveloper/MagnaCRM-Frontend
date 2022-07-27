@@ -21,7 +21,7 @@ const _nav = [
   {
     component: CNavItem,
     name: 'Mis Leads asignados',
-    to: '/mis-leads',
+    to: '/leads',
     icon: <CIcon icon={cilContact} customClassName="nav-icon" />
   },
   {
