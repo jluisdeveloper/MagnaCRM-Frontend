@@ -35,6 +35,19 @@ const useCrud = (endpoint) => {
     }
   }
 
+  const getModelWithPagination = async(_setData, _page = 1, _endPoint = endpoint) => {
+    try {
+      const resp = await authAxios.get(`${_endPoint}?page=${_page}`)
+      if (resp.data.status === "ok") {
+        _setData(resp.data)
+      } else {
+        _setData(null)
+      }
+    } catch (error) {
+      _setData(null)
+    }
+  }
+
   const getModelData = async(_endpoint = endpoint) =>{
     const resp = await authAxios.get(_endpoint)
     // console.log(resp.data.data)
@@ -88,7 +101,7 @@ const useCrud = (endpoint) => {
     }
   }
 
-  return { data, getModel, getModelData, updateModel, insertModel, deleteModel,    insertModelWithCallback }
+  return { data, getModel, getModelData, updateModel, insertModel, deleteModel,    insertModelWithCallback, getModelWithPagination }
 }
 
 export default useCrud

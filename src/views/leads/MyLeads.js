@@ -23,6 +23,10 @@ import MyLeadsTable from './extra/MyLeadsTable'
 let dataTable = {
   _header: [
     {
+      label: '#',
+      key: "#"
+    },
+    {
       label: "Nombres",
       key: "first_name",
     },
@@ -58,15 +62,20 @@ let dataTable = {
 
 const MyLeads = () => {
   const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem("user")))
-  const [leads, setLeads] = useState([])
+  const [leads, setLeads] = useState({})
 
-  const { getModel: getLeads } = useCrud(`api/v1/users/${currentUser.id}/clients`)
+  const { getModelWithPagination: getLeads } = useCrud(`api/v1/users/${currentUser.id}/clients`)
+
+  const handlePage = (page) => {
+    getLeads(setLeads, page)
+  }
 
   useEffect(() => {    
     getLeads(setLeads)  
   }, [])
   return (
     <CRow>
+      {/* { console.log(leads) } */}
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader className="py-4">
@@ -76,10 +85,14 @@ const MyLeads = () => {
             {/* { dataTable._data.length } */}
             <Suspense fallback={<CSpinner color="primary" variant="grow" />}>
               {
-                leads.length > 0 &&
+                leads.data && leads.data.length &&
                 <MyLeadsTable
                   meta_data={dataTable}
-                  data={leads}
+                  leads={leads.data}
+                  currentPage={leads.current_page}
+                  totalPages={leads.total_pages}
+                  perPages={leads.per_pages}
+                  handlePage={handlePage}
                   // coursesAvailable={coursesAvailable}
                   // insertModel={insertModel}
                 />

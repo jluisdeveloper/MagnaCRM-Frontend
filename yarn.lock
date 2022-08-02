@@ -3228,6 +3228,11 @@
     "path-type" "^4.0.0"
     "yaml" "^1.10.0"
 
+"country-code-lookup@^0.0.20":
+  "integrity" "sha512-mcNlekdiVyiKO0lrjj3FrZ36vxlwjUwXTHpdRtVu9917SAYsHrlORmpHdPXeEXwTmw/yiKiTX4t6LC5uP5KVFg=="
+  "resolved" "https://registry.npmjs.org/country-code-lookup/-/country-code-lookup-0.0.20.tgz"
+  "version" "0.0.20"
+
 "cross-spawn@^7.0.0", "cross-spawn@^7.0.2", "cross-spawn@^7.0.3":
   "integrity" "sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w=="
   "resolved" "https://registry.npmjs.org/cross-spawn/-/cross-spawn-7.0.3.tgz"
@@ -7319,6 +7324,11 @@
   "integrity" "sha512-5i3mjP6tU7QSn0jvb8I4hudTzHJqS8l00ORJnVwI2sYu0ihpj83Lv2YzfxunfxTZkscKvZu2F2w9LkwNBhj6xA=="
   "resolved" "https://registry.npmjs.org/react-chartjs-2/-/react-chartjs-2-4.3.1.tgz"
   "version" "4.3.1"
+
+"react-country-flag@^3.0.2":
+  "integrity" "sha512-JPaz+q3QD0/nZtHBKj5x3O7r/SgSG9kxbymdaIU0RqlDAcorJIe4KV0DFhWIdKh69q5cPVkIVERcMYGZdvXgAA=="
+  "resolved" "https://registry.npmjs.org/react-country-flag/-/react-country-flag-3.0.2.tgz"
+  "version" "3.0.2"
 
 "react-csv@^2.2.2":
   "integrity" "sha512-RG5hOcZKZFigIGE8LxIEV/OgS1vigFQT4EkaHeKgyuCbUAu9Nbd/1RYq++bJcJJ9VOqO/n9TZRADsXNDR4VEpw=="

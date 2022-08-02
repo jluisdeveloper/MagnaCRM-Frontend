@@ -27,26 +27,56 @@ const initialData = {
 
 const New = () => {
   const [course, setCourse] = useState(initialData)
+  const [brochureFiles, setBrochureFiles] = useState([{ file: {}, name: "" }])
   const { handleChange, data } = useChange(course)
   const { insertModel } = useCrud('/api/v1/courses')
   const { name, price, currency, start, status } = data
 
+  // const handleNewCourse = async () => {
+  //   const _url_back = `/cursos`
+  //   const parsedData = {
+  //     course: {
+  //       name,
+  //       price,
+  //       currency,
+  //       start,
+  //       status
+  //     }
+  //   }
+  //   await insertModel(parsedData, _url_back)
+  // }
+
   const handleNewCourse = async () => {
     const _url_back = `/cursos`
-    const parsedData = {
-      course: {
-        name, 
-        price, 
-        currency, 
-        start, 
-        status
-      }
-    }
-    await insertModel(parsedData, _url_back)
+    const formData = new FormData();
+    formData.append('name', name)
+    formData.append('price', price)
+    formData.append('currency', currency)
+    formData.append('start', start)
+    formData.append('status', status)
+
+    brochureFiles.map((fileBrochure, index) => {
+      formData.append('course[brochures_attributes]['+ index +'][file]', fileBrochure.file )
+      formData.append('course[brochures_attributes]['+ index +'][name]', fileBrochure.name )
+    })
+
+    await insertModel(formData, _url_back)
+  }
+
+  const handleChangeFile = (e, index) => {
+    const { name } = e.target
+    const list = [...brochureFiles]
+    brochureFiles[index][name] = e.target.files[0]
+    setBrochureFiles(list)
+  }
+
+  const handleAddBrochure = () => {
+    setBrochureFiles([...brochureFiles, { file: {}, name: "" }])
   }
 
   return (
     <CRow>
+      {console.log(brochureFiles)}
       <CCol xs={6}>
         <CCard className="mb-2">
           <CCardHeader>
@@ -119,6 +149,59 @@ const New = () => {
               Guardar
             </CButton>
           </CCardFooter>
+        </CCard>
+      </CCol>
+      <CCol xs={6}>
+        <CCard className="mb-2">
+          <CCardHeader>
+            <strong>Brochure's</strong>
+          </CCardHeader>
+          <CCardBody>
+            {/* <CCol xs={12}> */}
+            {/* <CFormInput type="file" name="brochure" /> */}
+            {brochureFiles.map((brochure, index) => {
+              return (
+                <CForm key={index}>
+                  <CRow className="g-3">
+                    <CCol xs>
+                      <CFormLabel>Archivo</CFormLabel>
+                      <CFormInput
+                        type="file"
+                        id="image"
+                        name="file"
+                        accept="*"
+                        multiple={false}
+                        placeholder="Suba la imagen"
+                        onChange={(e) => handleChangeFile(e, index)}
+                        onClick={(e) => { e.target.value = null }}
+                      />
+                    </CCol>
+                    <CCol xs>
+                      <CFormLabel>Nombre</CFormLabel>
+                      <CFormInput
+                        value={name}
+                        name="name"
+                        onChange={handleChange}
+                      />
+                    </CCol>
+                  </CRow>
+                  {brochureFiles.length - 1 === index &&
+
+                    <CButton
+                      type="button"
+                      color="success"
+                      onClick={() => handleAddBrochure()}
+                    >
+                      Agregar Slide
+                    </CButton>
+                  }
+                </CForm>
+              )
+            })
+            }
+
+            {/* </CCol> */}
+          </CCardBody>
         </CCard>
       </CCol>
     </CRow>

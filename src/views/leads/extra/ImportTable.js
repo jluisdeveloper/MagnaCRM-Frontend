@@ -20,6 +20,7 @@ import { cilCloudDownload, cilSave } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 import { capitalize, lettersOnly, regionNames } from '../../../helpers/auxiliarFunctions'
 import { timeOutWaiting } from '../../../helpers/timeOutCallback'
+import lookup from 'country-code-lookup'
 
 const ImportTable = (props) => {
   // destructuring props
@@ -45,8 +46,7 @@ const ImportTable = (props) => {
     if (validated && selected !== "") {
       let i = 0
       while (i < finalData.length) {
-        // setTimeout(async() => {
-        await timeOutWaiting();
+        await timeOutWaiting()
         const resp = await authAxios.post("/api/v1/clients", finalData[i])
         if (resp && resp.data.status === "ok") {
           i++
@@ -58,13 +58,22 @@ const ImportTable = (props) => {
     }
   }
 
-  const getCountryName = (_client) => {
+  const getCountryData = (_client) => {
     if (_client.country === undefined) {
-      return regionNames.of("PE")
+      return {
+        name: regionNames.of("PE"),
+        code: "PE"
+      }
     } else if (_client.country.length > 2) {
-      return _client.country
+      return {
+        name: capitalize(_client.country),
+        code: lookup.byCountry(_client.country) && lookup.byCountry(_client.country).iso2
+      }
     } else {
-      return regionNames.of(_client.country)
+      return {
+        name: regionNames.of(_client.country),
+        code: _client.country
+      }
     }
   }
 
@@ -114,7 +123,8 @@ const ImportTable = (props) => {
         first_name: getFullName(client).first_name,
         last_name: getFullName(client).last_name,
         phone: getPhoneNumber(client),
-        country: getCountryName(client),
+        country: getCountryData(client).name,
+        country_code: getCountryData(client).code,
         email: client.email,
         course_name: "Sin escoger un curso",
         course_id: selected,
