@@ -27,24 +27,10 @@ const initialData = {
 
 const New = () => {
   const [course, setCourse] = useState(initialData)
-  const [brochureFiles, setBrochureFiles] = useState([{ file: {}, name: "" }])
+  const [brochureFiles, setBrochureFiles] = useState([{ file: {}, file_name: "" }])
   const { handleChange, data } = useChange(course)
   const { insertModel } = useCrud('/api/v1/courses')
   const { name, price, currency, start, status } = data
-
-  // const handleNewCourse = async () => {
-  //   const _url_back = `/cursos`
-  //   const parsedData = {
-  //     course: {
-  //       name,
-  //       price,
-  //       currency,
-  //       start,
-  //       status
-  //     }
-  //   }
-  //   await insertModel(parsedData, _url_back)
-  // }
 
   const handleNewCourse = async () => {
     const _url_back = `/cursos`
@@ -57,9 +43,8 @@ const New = () => {
 
     brochureFiles.map((fileBrochure, index) => {
       formData.append('course[brochures_attributes]['+ index +'][file]', fileBrochure.file )
-      formData.append('course[brochures_attributes]['+ index +'][name]', fileBrochure.name )
+      formData.append('course[brochures_attributes]['+ index +'][file_name]', fileBrochure.file_name )
     })
-
     await insertModel(formData, _url_back)
   }
 
@@ -70,13 +55,19 @@ const New = () => {
     setBrochureFiles(list)
   }
 
+  const handleChangeFileText = (e, index) => {
+    let { name, value } = e.target
+    let list = [...brochureFiles]
+    list[index][name] = value
+    setBrochureFiles(list)
+  }
+
   const handleAddBrochure = () => {
-    setBrochureFiles([...brochureFiles, { file: {}, name: "" }])
+    setBrochureFiles([...brochureFiles, { file: {}, file_name: "" }])
   }
 
   return (
     <CRow>
-      {console.log(brochureFiles)}
       <CCol xs={6}>
         <CCard className="mb-2">
           <CCardHeader>
@@ -137,7 +128,7 @@ const New = () => {
             </CCol>
           </CCardBody>
           <CCardFooter>
-            <Link to="/ejecutivos" className="btn btn-info btn-sm float-end my-2 me-3">
+            <Link to="/cursos" className="btn btn-info btn-sm float-end my-2 me-3">
               Regresar atras
             </Link>
 
@@ -157,10 +148,7 @@ const New = () => {
             <strong>Brochure's</strong>
           </CCardHeader>
           <CCardBody>
-            {/* <CCol xs={12}> */}
-            {/* <CFormInput type="file" name="brochure" /> */}
-            {brochureFiles.map((brochure, index) => {
-              return (
+            { brochureFiles && brochureFiles.map((brochure, index) => (
                 <CForm key={index}>
                   <CRow className="g-3">
                     <CCol xs>
@@ -169,38 +157,35 @@ const New = () => {
                         type="file"
                         id="image"
                         name="file"
-                        accept="*"
+                        accept="application/pdf"
                         multiple={false}
                         placeholder="Suba la imagen"
                         onChange={(e) => handleChangeFile(e, index)}
-                        onClick={(e) => { e.target.value = null }}
+                        // onClick={(e) => { e.target.value = null }}
                       />
                     </CCol>
                     <CCol xs>
                       <CFormLabel>Nombre</CFormLabel>
                       <CFormInput
-                        value={name}
-                        name="name"
-                        onChange={handleChange}
+                        type="text"
+                        value={brochureFiles[index].file_name}
+                        name="file_name"
+                        onChange={(e) => handleChangeFileText(e, index) }
                       />
                     </CCol>
                   </CRow>
                   {brochureFiles.length - 1 === index &&
-
                     <CButton
                       type="button"
                       color="success"
                       onClick={() => handleAddBrochure()}
                     >
-                      Agregar Slide
+                      Agregar Documento
                     </CButton>
                   }
                 </CForm>
-              )
-            })
+              ))
             }
-
-            {/* </CCol> */}
           </CCardBody>
         </CCard>
       </CCol>

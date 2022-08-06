@@ -26,7 +26,7 @@ const Index = () => {
   const { getModel, deleteModel } = useCrud('/api/v1/courses')
 
   const deleteCourse = async (id) => {
-    await deleteModel(layerGetData, `/api/v1/admin/courses/${id}`)
+    await deleteModel(layerGetData, `/api/v1/courses/${id}`)
   }
 
   const layerGetData = () => {
@@ -45,7 +45,7 @@ const Index = () => {
             <CCardHeader className="py-4">
               <strong>Ejecutivos de Ventas,</strong> <small>listado completo</small>
               <CTooltip content="Regitrar nuevo curso">
-                <Link 
+                <Link
                   to={`/cursos/nuevo`}
                   className='btn btn-sm btn-success ms-1 float-end'>
                   <CIcon icon={cilPlus} /> {' '} Registrar nuevo curso
@@ -79,24 +79,24 @@ const Index = () => {
                         <CTableDataCell>
                           <CTooltip content="Detalles de registro">
                             <Link
-                              to={`/ejecutivos/${course.id}/detalle`}
+                              to={`/cursos/${course.id}/detalle`}
                               className="btn btn-sm btn-success ms-1"
                             >
                               <CIcon icon={cilZoomIn} />
                             </Link>
                           </CTooltip>
                           <CTooltip content="Editar registro">
-                            <Link to={`/ejecutivos/${course.id}/editar`} className="btn btn-warning btn-sm ms-1">
+                            <Link to={`/cursos/${course.id}/editar`} className="btn btn-warning btn-sm ms-1">
                               <CIcon icon={cilPen} />
                             </Link>
                           </CTooltip>
                           <CTooltip content="Ver estadísticas">
-                            <CButton color="primary" size="sm" className="ms-1" onClick={() => { }}>
+                            <Link to={`/cursos/${course.id}/estadisticas`} className="btn btn-primary btn-sm ms-1">
                               <CIcon icon={cilChart} />
-                            </CButton>
+                            </Link>
                           </CTooltip>
                           <CTooltip content="Eliminar registro">
-                            <CButton color="danger" size="sm" className="ms-1" onClick={() => deleteCourse(course.id) }>
+                            <CButton color="danger" size="sm" className="ms-1" onClick={() => deleteCourse(course.id)}>
                               <CIcon icon={cilTrash} />
                             </CButton>
                           </CTooltip>

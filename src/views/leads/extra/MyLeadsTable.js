@@ -43,7 +43,6 @@ const MyLeadsTable = (props) => {
 
   return (
     <>
-      {/* {console.log(lookup.byCountry('UK').iso2)} */}
       {
         isLoading ? <CSpinner color="primary" variant="grow" /> :
           <CTable className="mt-4">

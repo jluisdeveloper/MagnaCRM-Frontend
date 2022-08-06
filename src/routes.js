@@ -9,6 +9,9 @@ const EditSeller = React.lazy(() => import('./views/sellers/Edit'))
 
 const Courses = React.lazy(() => import('./views/courses/Index'))
 const NewCourse = React.lazy(() => import('./views/courses/New'))
+const EditCourse = React.lazy(() => import('./views/courses/Edit'))
+const ShowCourse = React.lazy(() => import('./views/courses/Show'))
+const StatsCourse = React.lazy(() => import('./views/courses/Stats'))
 
 const LeadsImport = React.lazy(() => import('./views/leads/Import'))
 const AssignLeads = React.lazy(() => import('./views/leads/ToAssign'))
@@ -20,6 +23,9 @@ const routes = [
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
   { path: '/cursos', exact: true, name: 'Cursos', element: Courses },
   { path: '/cursos/nuevo', name: 'Nuevo curso', element: NewCourse },
+  { path: '/cursos/:course_id/editar', name: 'Editar curso', element: EditCourse },
+  { path: '/cursos/:course_id/detalle', name: 'Detalle curso', element: ShowCourse },
+  { path: '/cursos/:course_id/estadisticas', name: 'Estadísticas curso', element: StatsCourse },
   { path: '/ejecutivos', exact: true, name: 'Ejecutivos de Venta', element: Sellers },
   { path: '/ejecutivos/nuevo', exact: true, name: 'Nuevo Ejecutivo', element: NewSeller },
   { path: '/ejecutivos/:id_SE/detalle', exact: true, name: 'Detalle de Ejecutivo', element: ShowSeller },

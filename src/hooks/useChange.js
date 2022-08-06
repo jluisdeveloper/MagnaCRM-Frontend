@@ -11,8 +11,7 @@ const useChange = (initialData) => {
   const handleChange = (e) => {
     setData({
       ...data,
-      [e.target.name]: e.target.value,
-      
+      [e.target.name]: e.target.value
     })
   }
 

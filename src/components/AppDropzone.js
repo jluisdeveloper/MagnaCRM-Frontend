@@ -1,7 +1,6 @@
-import React, { useState, useCallback } from "react"
-import Dropzone, { useDropzone } from 'react-dropzone'
+import React, { useState, useEffect, useCallback } from "react"
+import { useDropzone } from 'react-dropzone'
 import {
-  CCard,
   CRow,
   CTooltip,
   CButton,
@@ -74,6 +73,8 @@ const AppDropzone = (props) => {
 
   return (
     <div className="custom_card_dropzone">
+      { console.log(files) }
+      {/* { console.log(props.realFiles.length) } */}
       <div
         {...getRootProps({
           className: `dropzone
@@ -89,9 +90,9 @@ const AppDropzone = (props) => {
         )}
       </div>
       <CRow>
-        {files.map((file, index) =>
+        {props.realFiles && props.realFiles.length && files.length ? files.map((file, index) =>
           <div className="custom_preview_dropzone" key={index}>
-            <CTooltip content={file.name}>
+            <CTooltip content={file.name}>              
               <img
                 width={70}
                 src={setIcon(file)}
@@ -103,37 +104,8 @@ const AppDropzone = (props) => {
               </CButton>
             </CTooltip>
           </div>
-        )}
+        ) : null}
       </CRow>
-      {/* <Dropzone
-        onDrop={acceptedFiles => {
-          setFiles(
-            acceptedFiles.map((item) => ({
-              name: item.name,
-              type: item.type,
-            }))
-          )
-          props.setRealFiles(acceptedFiles)
-        }}
-        accept={props.acceptParams}
-      >
-        {({ getRootProps, getInputProps }) => (
-          <CCard>
-            <div {...getRootProps({
-              className: `dropzone
-              ${isDragAccept && 'dropzoneAccept'}
-              ${isDragReject && 'dropzoneReject'}`,
-            })}>
-              <input {...getInputProps()} />
-              {isDragActive ? (
-                <p>Suelta los archivos aquí ...</p>
-              ) : (
-                <p>Arrastre y suelte los archivos aquí, o haga clic para seleccionar archivos</p>
-              )}
-            </div>
-          </CCard>
-        )}
-      </Dropzone> */}
     </div>
   )
 
